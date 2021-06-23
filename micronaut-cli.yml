@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: br.com.zup.warriors.engine
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, cassandra, gradle, http-client, kotest, kotlin, kotlin-application, logback, management, netty-server, readme, shade, yaml]
