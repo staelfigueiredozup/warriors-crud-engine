@@ -1,27 +1,23 @@
-package br.com.zup.warriors.engine.controller
+package br.com.zup.warriors.engine.entrypoint.controller
 
-import br.com.zup.warriors.engine.dto.ConsoleResponse
-import br.com.zup.warriors.engine.service.ConsoleService
+import br.com.zup.warriors.engine.core.ports.ConsoleServicePort
+import br.com.zup.warriors.engine.database.repository.ConsoleEntityRepository
+import br.com.zup.warriors.engine.entrypoint.dto.ConsoleResponse
 import br.com.zup.warriors.exception.ConsoleNaoEncontradoException
-import br.com.zup.warriors.repository.ConsoleRepository
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
-import java.lang.RuntimeException
 import java.time.LocalDate
 import java.util.*
 
 @MicronautTest
 class ConsolesControllerTest : AnnotationSpec() {
 
-    val repository = mockk<ConsoleRepository>()
-    val service = mockk<ConsoleService>()
+    val repository = mockk<ConsoleEntityRepository>()
+    val service = mockk<ConsoleServicePort>()
     val controller = ConsolesController(service)
 
     lateinit var consoleResponse: ConsoleResponse

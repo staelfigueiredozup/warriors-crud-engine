@@ -1,9 +1,9 @@
-package br.com.zup.warriors.engine.service
+package br.com.zup.warriors.engine.core.service
 
-import br.com.zup.warriors.engine.dto.ConsoleResponse
+import br.com.zup.warriors.engine.core.ports.ConsoleEntityServicePort
+import br.com.zup.warriors.engine.entrypoint.dto.ConsoleResponse
 import br.com.zup.warriors.exception.ConsoleNaoEncontradoException
 import br.com.zup.warriors.model.Console
-import br.com.zup.warriors.repository.ConsoleRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -14,10 +14,10 @@ import java.time.LocalDate
 import java.util.*
 
 @MicronautTest
-class ConsoleServiceImplTest : AnnotationSpec() {
+class ConsoleServiceTest : AnnotationSpec() {
 
-    val repository = mockk<ConsoleRepository>()
-    val service = ConsoleServiceImpl(repository)
+    val repository = mockk<ConsoleEntityServicePort>()
+    val service = ConsoleService(repository)
 
     lateinit var console: Console
 

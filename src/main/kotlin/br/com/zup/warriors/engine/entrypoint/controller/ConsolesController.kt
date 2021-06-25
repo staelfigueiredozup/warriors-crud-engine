@@ -1,7 +1,7 @@
-package br.com.zup.warriors.engine.controller
+package br.com.zup.warriors.engine.entrypoint.controller
 
-import br.com.zup.warriors.engine.dto.ConsoleResponse
-import br.com.zup.warriors.engine.service.ConsoleService
+import br.com.zup.warriors.engine.core.ports.ConsoleServicePort
+import br.com.zup.warriors.engine.entrypoint.dto.ConsoleResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -10,7 +10,7 @@ import io.micronaut.http.annotation.PathVariable
 import java.util.*
 
 @Controller("/v1/consoles")
-class ConsolesController(private val service: ConsoleService) {
+class ConsolesController(private val service: ConsoleServicePort) {
 
     @Get("/{id}")
     fun consultaConsole(@PathVariable id: String) : HttpResponse<Any> {
