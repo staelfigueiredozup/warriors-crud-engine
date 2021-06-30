@@ -1,6 +1,6 @@
-package br.com.zup.warriors.engine.database.repository.impl
+package br.com.zup.warriors.engine.database.repository
 
-import br.com.zup.warriors.engine.database.repository.ConsoleEntityRepository
+import br.com.zup.warriors.engine.core.ports.ConsoleRepositoryPort
 import br.com.zup.warriors.engine.database.entity.ConsoleEntity
 import com.datastax.oss.driver.api.core.CqlSession
 import com.datastax.oss.driver.api.core.cql.ResultSet
@@ -10,7 +10,7 @@ import java.util.*
 import javax.inject.Singleton
 
 @Singleton
-class ConsoleRepositoryImpl(private val cqlSession: CqlSession) : ConsoleEntityRepository {
+class ConsoleRepositoryImpl(private val cqlSession: CqlSession) : ConsoleRepositoryPort {
     override fun findById(id: UUID): ConsoleEntity? {
 
         val row: Row? = cqlSession.execute(

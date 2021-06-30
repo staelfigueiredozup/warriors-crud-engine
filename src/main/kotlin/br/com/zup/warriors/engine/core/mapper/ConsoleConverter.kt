@@ -26,6 +26,11 @@ class ConsoleConverter {
             )
         }
 
+        fun listaConsolesToListaConsoleResponse(listaConsoles: List<Console>) =
+            listaConsoles.map { console ->
+                ConsoleResponse(console.id, console.nome, console.marca,
+                    console.dataLancamento.toString(), console.dataCadastro.toString()) }
+
     }
 
 }
