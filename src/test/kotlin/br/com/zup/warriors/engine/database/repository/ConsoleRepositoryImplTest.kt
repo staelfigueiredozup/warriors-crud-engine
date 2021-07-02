@@ -21,8 +21,7 @@ class ConsoleRepositoryImplTest : AnnotationSpec() {
     val cqlSession = mockk<CqlSession>(relaxed = true)
     val repository =  ConsoleRepositoryImpl(cqlSession)
     val row = mockk<Row>(relaxed = true)
-    val resultSet = mockk<ResultSet>(relaxed = true)
-
+    lateinit var resultSet: ResultSet
 
     lateinit var console: Console
     lateinit var consoleEntity: ConsoleEntity
@@ -63,42 +62,30 @@ class ConsoleRepositoryImplTest : AnnotationSpec() {
 
     }
 
-//    @Test
-//    fun `deve selecionar a lista de consoles e depois transformar em lista de consoleEntity`(){
-//        //cenário
-//        every { cqlSession.execute(
-//            SimpleStatement
-//                .builder("SELECT * FROM console.console")
-//                .build()
-//        ) } answers { resultSet }
-//
-//        mockkConstructor(ResultSet::class)
-//        every { anyConstructed<ResultSet>() } returns {  }
-//
-//        every { repository.findAll() } returns listOf<ConsoleEntity>(
-//                mockk {
-//                    every { nome } returns "consoleA"
-//                    every { marca } returns "marcaA"
-//                    every { dataLancamento } returns LocalDate.now()
-//                    every { id } returns id
-//                    every { dataCadastro } returns LocalDate.now()
-//                },
-//                mockk {
-//                    every { nome } returns "consoleA"
-//                    every { marca } returns "marcaA"
-//                    every { dataLancamento } returns LocalDate.now()
-//                    every { id } returns idGerado
-//                    every { dataCadastro } returns LocalDate.now()
-//                }
-//            ).toList()
-//
-//        //ação
-//        val result = repository.findAll()
-//
-//        //validação
-//        result[0].nome shouldBe "consoleA"
-//
-//        }
+    @Test
+    fun `deve selecionar a lista de consoles e depois transformar em lista de consoleEntity`(){
+        //cenário
+
+        val resultadoBusca = cqlSession.execute(
+            SimpleStatement
+                .builder("SELECT * FROM console.console")
+                .build()
+        ).map { row ->
+            ConsoleEntity(id = row.getUuid("id"),
+                nome = row?.getString("nome")!!,
+                marca = row?.getString("marca")!!,
+                dataLancamento = row?.getLocalDate("data_lancamento"),
+                dataCadastro = row?.getLocalDate("data_cadastro")!!,
+            )
+        }.toList()
+
+        //ação
+        val result = repository.findAll()
+
+        //validação
+        result shouldBe resultadoBusca
+
+        }
 
 
 }
