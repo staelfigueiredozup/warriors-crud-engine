@@ -1,8 +1,8 @@
 package br.com.zup.warriors.engine.core.mapper
 
+import br.com.zup.warriors.engine.database.entity.ConsoleEntity
 import br.com.zup.warriors.engine.entrypoint.dto.ConsoleResponse
 import br.com.zup.warriors.model.Console
-import br.com.zup.warriors.engine.database.entity.ConsoleEntity
 
 class ConsoleConverter {
     companion object {
@@ -16,13 +16,13 @@ class ConsoleConverter {
             )
         }
 
-        fun consoleEntityToConsole(consoleEntity: ConsoleEntity): Console {
-            return Console(
+        fun consoleEntityToConsoleResponse(consoleEntity: ConsoleEntity): ConsoleResponse {
+            return ConsoleResponse(
                 id = consoleEntity.id,
                 nome = consoleEntity.nome,
                 marca = consoleEntity.marca,
-                dataLancamento = consoleEntity.dataLancamento,
-                dataCadastro = consoleEntity.dataCadastro
+                dataLancamento = consoleEntity.dataLancamento.toString(),
+                dataCadastro = consoleEntity.dataCadastro.toString()
             )
         }
 

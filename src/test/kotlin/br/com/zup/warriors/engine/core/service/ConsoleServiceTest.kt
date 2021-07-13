@@ -2,8 +2,8 @@ package br.com.zup.warriors.engine.core.service
 
 import br.com.zup.warriors.engine.core.ports.ConsoleRepositoryPort
 import br.com.zup.warriors.engine.database.entity.ConsoleEntity
+import br.com.zup.warriors.engine.entrypoint.dto.ConsoleResponse
 import br.com.zup.warriors.exception.ConsoleNaoEncontradoException
-import br.com.zup.warriors.model.Console
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
@@ -70,7 +70,7 @@ class ConsoleServiceTest : AnnotationSpec() {
 
         //validação
         result.size shouldBe 3
-        result.get(0).javaClass shouldBe Console::class.java
+        result.get(0).javaClass shouldBe ConsoleResponse::class.java
         result.get(0).nome shouldBe "console1"
     }
 

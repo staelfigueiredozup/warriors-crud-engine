@@ -39,7 +39,7 @@ class ConsolesControllerTest : AnnotationSpec() {
     @Test
     fun `deve retornar um console buscando pelo id`(){
         //cenário
-        every { service.consultaConsole(id) } answers { console }
+        every { service.consultaConsole(id) } answers { consoleResponse }
         every { converter.consoleToConsoleResponse(console) } answers { consoleResponse }
 
         //ação
@@ -89,7 +89,7 @@ class ConsolesControllerTest : AnnotationSpec() {
 
         val listaConsoles: List<Console> = listOf(console1, console2, console3)
         val listaConsoleResponse: List<ConsoleResponse> = listOf(console4, console5, console6)
-        every { service.listaConsoles() } answers { listaConsoles }
+        every { service.listaConsoles() } answers { listaConsoleResponse }
         every { converter.listaConsolesToListaConsoleResponse(listaConsoles) } answers { listaConsoleResponse }
 
         //ação

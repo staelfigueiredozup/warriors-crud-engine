@@ -17,7 +17,7 @@ class ConsolesController(private val service: ConsoleServicePort) {
     fun consultaConsole(@PathVariable id: String) : HttpResponse<Any> {
         val responseConsultaId = try {
 
-            ConsoleConverter.consoleToConsoleResponse(service.consultaConsole(UUID.fromString(id)))
+            service.consultaConsole(UUID.fromString(id))
 
         } catch (e: RuntimeException) {
             if(e.message == "Console inexistente no banco de dados"){
@@ -30,7 +30,7 @@ class ConsolesController(private val service: ConsoleServicePort) {
 
     @Get
     fun listaConsoles(): HttpResponse<List<ConsoleResponse>>{
-        val responseConsultaTodos = ConsoleConverter.listaConsolesToListaConsoleResponse(service.listaConsoles())
+        val responseConsultaTodos = service.listaConsoles()
         return HttpResponse.ok(HttpStatus.OK).body(responseConsultaTodos)
     }
 
